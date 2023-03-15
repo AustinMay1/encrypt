@@ -2,7 +2,7 @@
 
 ### (inital ideas) TODO:
 
-- [ ] Read in user args. Encryption algo, file path, mode (encrypt or decrypt), key (if mode = decrypt).
+- [x] Read in user args. Encryption algo, file path, mode (encrypt or decrypt), key (if mode = decrypt).
 - [ ] Pass file from args to proper encryption algo.
 - [ ] Encrypt file
 - [ ] Replace original file with encrypted file.
