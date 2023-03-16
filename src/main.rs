@@ -1,12 +1,17 @@
 mod algos;
 
 use clap::Parser;
-use crate::algos::rsa::{rsa_encrypt, rsa_decrypt};
 
+use crate::algos::rsa::{rsa_decrypt, rsa_encrypt};
 #[derive(clap::ValueEnum, Clone)]
 enum Mode {
     Encrypt,
     Decrypt,
+}
+
+#[derive(clap::ValueEnum, Clone)]
+enum Algo {
+    RSA,
 }
 
 #[derive(clap::Parser)]
@@ -16,19 +21,17 @@ struct Args {
 
     file: std::path::PathBuf,
 
-    algo: Option<String>,
+    #[arg(value_enum)]
+    algo: Option<Algo>,
 
     key: Option<String>,
 }
 
 fn main() {
-
     let args = Args::parse();
 
-    let mode = match &args.mode {
-        Mode::Encrypt => "ENCRYPT",
-        Mode::Decrypt => "DECRYPT",
+    match &args.mode {
+        Mode::Encrypt => rsa_encrypt(args.file),
+        Mode::Decrypt => rsa_decrypt(args.file, args.key.unwrap()),
     };
-
-    //println!("{}", mode);
 }
